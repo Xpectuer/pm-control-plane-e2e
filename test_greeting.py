@@ -51,3 +51,21 @@ def test_greet_rejects_null_with_message() -> None:
 def test_greet_rejects_other_non_string_types(invalid: object) -> None:
     with pytest.raises(TypeError):
         greet(invalid)
+
+
+def test_greet_rejects_whitespace_only_tabs_and_newlines() -> None:
+    with pytest.raises(ValueError):
+        greet("\t\n  ")
+
+
+def test_greet_rejects_boolean_as_non_string() -> None:
+    with pytest.raises(TypeError):
+        greet(True)
+
+
+def test_greet_normalizes_newline_within_name() -> None:
+    assert greet("Ada\nLovelace") == "Hello, Ada Lovelace!"
+
+
+def test_greet_normalizes_tab_within_name() -> None:
+    assert greet("Grace\tHopper") == "Hello, Grace Hopper!"
